@@ -16,6 +16,8 @@ class Api::V1::WeathersController < ApplicationController
   end
 
   def destroy
+    Weather.destroy_all
+
   end
 
   def params_check

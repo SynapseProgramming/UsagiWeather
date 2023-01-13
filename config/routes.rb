@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       post 'weathers/create'
       get 'weathers/read'
+      get 'weathers/destroy'
     end
   end
 
