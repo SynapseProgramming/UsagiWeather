@@ -14,5 +14,5 @@ web: rails s -b 192.168.50.119 -p 5000
 # `bundle exec rake react_on_rails:locale` before you run bin/webpacker
 webpack: sh -c 'rm -rf public/packs/* || true && bin/webpacker -w'
 
-  get 'hello_world', to: 'hello_world#index'
+   get 'hello_world', to: 'hello_world#index'
   

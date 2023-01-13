@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+  root "hello_world#index"
   namespace :api do
     namespace :v1 do
       post 'weathers/create'
@@ -10,8 +11,8 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'usagi_weather', to: 'hello_world#index'
   get '/*path' => 'hello_world#index'
+  get 'usagi_weather', to: 'hello_world#index'
 
 
 end
