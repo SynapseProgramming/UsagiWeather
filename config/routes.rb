@@ -10,5 +10,8 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'hello_world', to: 'hello_world#index'
+  get 'usagi_weather', to: 'hello_world#index'
+  get '/*path' => 'hello_world#index'
+
+
 end
