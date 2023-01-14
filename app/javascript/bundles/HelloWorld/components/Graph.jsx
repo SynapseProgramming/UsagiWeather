@@ -24,10 +24,14 @@ temp["name"] = "temp";
 let press = JSON.parse(JSON.stringify(sampleSeries));
 temp["name"] = "press";
 
+let humid = JSON.parse(JSON.stringify(sampleSeries));
+humid["name"] = "humid";
+
 const Graph = (props) => {
   const [isLoading, setLoading] = useState(true);
   const [mainTemp, setmainTemp] = useState();
   const [mainPress, setmainPress] = useState();
+  const [mainHumid, setmainHumid] = useState();
 
   useEffect(() => {
     const url = "api/v1/weathers/read";
@@ -48,15 +52,20 @@ const Graph = (props) => {
             // console.log(timeConvert);
             let timeu = timeConvert.getTime();
             temp["points"].push([timeu, parseFloat(element.temp)]);
-            press["points"].push([timeu, parseFloat(element.press)/1000]);
+            press["points"].push([timeu, parseFloat(element.press) / 1000]);
+            humid["points"].push([timeu, parseFloat(element.humid)]);
           });
 
           if (isLoading) {
             // enforce time sort my chronological order
+
+            console.log(humid);
             temp.points.sort();
             press.points.sort();
+            humid.points.sort();
             setmainTemp(new TimeSeries(temp));
             setmainPress(new TimeSeries(press));
+            setmainHumid(new TimeSeries(humid));
 
             setLoading(false);
           }
@@ -106,11 +115,21 @@ const Graph = (props) => {
             format=",.2f"
           />
           <Charts>
-            <LineChart
-              axis="axis2"
-              series={mainPress}
-              column={["Pressure"]}
-            />
+            <LineChart axis="axis2" series={mainPress} column={["Pressure"]} />
+          </Charts>
+        </ChartRow>
+        <ChartRow height="150">
+          <YAxis
+            id="axis2"
+            label="Humidity (%)"
+            min={0}
+            max={100}
+            width="100"
+            type="linear"
+            format=",.2f"
+          />
+          <Charts>
+            <LineChart axis="axis2" series={mainHumid} column={["Humidity"]} />
           </Charts>
         </ChartRow>
       </ChartContainer>
