@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       post 'weathers/create'
       get 'weathers/read'
       get 'weathers/destroy'
+      get 'weathers/latest'
     end
   end
 

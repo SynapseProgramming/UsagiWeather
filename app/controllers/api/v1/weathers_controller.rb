@@ -12,6 +12,11 @@ class Api::V1::WeathersController < ApplicationController
     render json: @all_data
   end
 
+
+  def latest
+    render json: Weather.last
+  end
+
   def update
   end
 
