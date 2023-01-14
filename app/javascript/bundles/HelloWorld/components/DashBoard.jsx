@@ -50,26 +50,33 @@ const DashBoard = (props) => {
               The current temperature is {sensorData.temp} C
             </Card.Title>
 
-            <Thermostat
-              height="300px"
-              width="300px"
-              ambientTemperature={sensorData.temp}
-              targetTemperature={sensorData.temp}
-              hvacMode="cooling"
-            />
+            <div class="mx-auto" style={{ width: 350 }}>
+              <Thermostat
+                height="300px"
+                width="300px"
+                ambientTemperature={sensorData.temp}
+                targetTemperature={sensorData.temp}
+                hvacMode="cooling"
+              />
+            </div>
           </Card.Body>
         </Card>
         <Card className="text-center">
           <Card.Header>Humidity</Card.Header>
           <Card.Title>The current Humidity is {Humid[0]}%</Card.Title>
+
           <Card.Body>
-            <Doughnut data={Humid} />
+            <div class="mx-auto" style={{ width: 350 }}>
+              <Doughnut data={Humid} />
+            </div>
           </Card.Body>
         </Card>
         <Card className="text-center">
           <Card.Header>Pressure & Altitude</Card.Header>
           <Card.Body>
-            <p class="fw-bold fs-4">Current Pressure: {sensorData.press / 1000} kPa</p>
+            <p class="fw-bold fs-4">
+              Current Pressure: {sensorData.press / 1000} kPa
+            </p>
             <p class="fw-bold fs-4  "> Current Altitude: {sensorData.alt} M </p>
           </Card.Body>
         </Card>

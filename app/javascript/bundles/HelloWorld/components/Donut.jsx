@@ -19,9 +19,5 @@ export default (props) => {
       },
     ],
   };
-  return (
-    <div style={{ width: 700, height: 600 }}>
-      <Doughnut data={data} />;
-    </div>
-  );
+  return <Doughnut data={data} />;
 };
