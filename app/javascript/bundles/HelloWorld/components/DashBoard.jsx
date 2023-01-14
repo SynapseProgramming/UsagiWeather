@@ -42,8 +42,8 @@ const DashBoard = (props) => {
   if (isLoading == false) {
     // main return when there is data available
     return (
-      <CardGroup>
-        <Card border="success" className="text-center">
+      <div class="card-group">
+        <Card className="text-center">
           <Card.Header>Temperature</Card.Header>
           <Card.Body>
             <Card.Title>
@@ -59,13 +59,14 @@ const DashBoard = (props) => {
             />
           </Card.Body>
         </Card>
-        <Card>
+
+        <Card className="text-center">
           <Card.Header>Humidity</Card.Header>
           <Card.Body>
-            <Doughnut data={Humid} />
+              <Doughnut data={Humid} />
           </Card.Body>
         </Card>
-      </CardGroup>
+      </div>
     );
   }
 
