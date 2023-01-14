@@ -6,6 +6,24 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Outlet, Link } from "react-router-dom";
 import { Navbar, Nav } from "react-bootstrap";
 
+const DeleteAll = () => {
+  const url = "api/v1/weathers/destroy";
+  let is_mounted = true;
+  if (is_mounted) {
+    fetch(url)
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error("Network response was not ok.");
+      })
+      .then((response) => {
+        Console.log("Everything was deleted!");
+      })
+      .catch((e) => console.error("Exception thrown", e.stack));
+  }
+};
+
 const ToolBar = (props) => {
   return (
     <div>
@@ -18,6 +36,18 @@ const ToolBar = (props) => {
             View Graph
           </Nav.Link>
         </Nav>
+        <form class="form-inline">
+          <button
+            class="btn btn-danger"
+            type="button"
+            onClick={() => {
+              DeleteAll();
+              console.log("pressed!");
+            }}
+          >
+            Delete All
+          </button>
+        </form>
       </Navbar>
       <Outlet />
     </div>
