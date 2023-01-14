@@ -69,3 +69,5 @@ end
 gem "shakapacker", "= 6.5"
 
 gem "react_on_rails", "= 13.2"
+
+gem "bootstrap", "~> 5.2"

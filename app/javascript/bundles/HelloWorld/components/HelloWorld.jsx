@@ -1,22 +1,39 @@
-import PropTypes from 'prop-types';
-import React, { useState } from 'react';
-import style from './HelloWorld.module.css';
+import PropTypes from "prop-types";
+import React, { useState } from "react";
+import {
+  BrowserRouter as Router,
+  createBrowserRouter,
+  Route,
+  RouterProvider,
+  Routes,
+} from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+
+import Toolbar from "../components/Toolbar";
+import Graph from "../components/Graph";
+import DashBoard from "../components/DashBoard";
 
 const HelloWorld = (props) => {
   const [name, setName] = useState(props.name);
 
-  return (
-    <div>
-      <h3>Hello, {name}!</h3>
-      <hr />
-      <form>
-        <label className={style.bright} htmlFor="name">
-          Say hello to:
-          <input id="name" type="text" value={name} onChange={(e) => setName(e.target.value)} />
-        </label>
-      </form>
-    </div>
-  );
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Toolbar />,
+      children: [
+        {
+          path: "/graph",
+          element: <Graph />,
+        },
+        {
+          path: "/dashboard",
+          element: <DashBoard />,
+        },
+      ],
+    },
+  ]);
+
+  return <RouterProvider router={router} />;
 };
 
 HelloWorld.propTypes = {
