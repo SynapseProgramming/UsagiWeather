@@ -31,6 +31,13 @@ const ToolBar = (props) => {
     <div>
       <Navbar bg="dark" variant="dark">
         <Nav className="ml-auto">
+          <img
+            src={require('../UsagilogoSVG.svg')}
+            width="30"
+            height="30"
+            className="d-inline-block align-top"
+            alt="React Bootstrap logo"
+          />
           <Navbar.Brand as={Link} to="/dashboard">
             Usagi Weather
           </Navbar.Brand>
