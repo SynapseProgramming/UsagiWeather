@@ -42,9 +42,7 @@ const ToolBar = (props) => {
           class="btn btn-danger"
           type="button"
           onClick={() => {
-            // DeleteAll();
             setDeletePressed(true);
-            console.log("pressed!");
           }}
         >
           Delete All
@@ -52,32 +50,32 @@ const ToolBar = (props) => {
         <Modal
           show={DeletePressed}
           onHide={() => {
-            console.log("hidden");
             setDeletePressed(false);
           }}
         >
           <Modal.Header closeButton>
-            <Modal.Title>Modal heading</Modal.Title>
+            <Modal.Title>Warning!</Modal.Title>
           </Modal.Header>
-          <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+          <Modal.Body>
+            You are about to delete all weather records. Are you sure?
+          </Modal.Body>
           <Modal.Footer>
             <Button
               variant="secondary"
               onClick={() => {
-                console.log("secondary");
                 setDeletePressed(false);
               }}
             >
-              Close
+              No
             </Button>
             <Button
               variant="primary"
               onClick={() => {
-                console.log("primary");
+                DeleteAll();
                 setDeletePressed(false);
               }}
             >
-              Save Changes
+              Yes
             </Button>
           </Modal.Footer>
         </Modal>
