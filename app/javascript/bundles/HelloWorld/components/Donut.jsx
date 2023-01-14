@@ -8,7 +8,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default (props) => {
   const data = {
-    labels: ["High", "Low"],
+    labels: ["Moist", "No Moist"],
     datasets: [
       {
         label: "Humidity",
