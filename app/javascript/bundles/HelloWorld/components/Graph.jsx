@@ -87,6 +87,7 @@ const Graph = (props) => {
 
   return (
     <div>
+      <h2>Some neat graphs</h2>
       <ChartContainer timeRange={mainTemp.timerange()} width={1000}>
         <ChartRow height="150">
           <YAxis

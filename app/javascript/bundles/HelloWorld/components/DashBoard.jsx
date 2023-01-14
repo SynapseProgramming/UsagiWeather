@@ -42,37 +42,35 @@ const DashBoard = (props) => {
   if (isLoading == false) {
     // main return when there is data available
     return (
-        <div class="card-group">
-          <Card className="text-center">
-            <Card.Header>Temperature</Card.Header>
-            <Card.Body>
-              <Card.Title>
-                The current temperature is {sensorData.temp} C
-              </Card.Title>
+      <div class="card-group">
+        <Card className="text-center">
+          <Card.Header>Temperature</Card.Header>
+          <Card.Body>
+            <Card.Title>
+              The current temperature is {sensorData.temp} C
+            </Card.Title>
 
-              <Thermostat
-                height="300px"
-                width="300px"
-                ambientTemperature={sensorData.temp}
-                targetTemperature={sensorData.temp}
-                hvacMode="cooling"
-              />
-            </Card.Body>
-          </Card>
-          <Card className="text-center">
-            <Card.Header>Humidity</Card.Header>
-              <Card.Title>
-                The current Humidity is {Humid[0]}%
-              </Card.Title>
-            <Card.Body>
-              <Doughnut data={Humid} />
-            </Card.Body>
-          </Card>
+            <Thermostat
+              height="300px"
+              width="300px"
+              ambientTemperature={sensorData.temp}
+              targetTemperature={sensorData.temp}
+              hvacMode="cooling"
+            />
+          </Card.Body>
+        </Card>
+        <Card className="text-center">
+          <Card.Header>Humidity</Card.Header>
+          <Card.Title>The current Humidity is {Humid[0]}%</Card.Title>
+          <Card.Body>
+            <Doughnut data={Humid} />
+          </Card.Body>
+        </Card>
         <Card className="text-center">
           <Card.Header>Pressure & Altitude</Card.Header>
           <Card.Body>
-            <p>Current Pressure: {sensorData.press/1000} kPa</p>
-            <p>Current Altitude: {sensorData.alt} M </p>
+            <p class="fw-bold fs-4">Current Pressure: {sensorData.press / 1000} kPa</p>
+            <p class="fw-bold fs-4  "> Current Altitude: {sensorData.alt} M </p>
           </Card.Body>
         </Card>
       </div>
