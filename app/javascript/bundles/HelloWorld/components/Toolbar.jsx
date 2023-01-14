@@ -11,7 +11,7 @@ const ToolBar = (props) => {
     <div>
       <Navbar bg="dark" variant="dark">
         <Nav className="ml-auto">
-          <Navbar.Brand as={Link} to="/">
+          <Navbar.Brand as={Link} to="/dashboard">
             Usagi Weather
           </Navbar.Brand>
           <Nav.Link as={Link} to="/graph">

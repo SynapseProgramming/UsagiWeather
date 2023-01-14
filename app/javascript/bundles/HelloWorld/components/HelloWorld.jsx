@@ -11,6 +11,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import Toolbar from "../components/Toolbar";
 import Graph from "../components/Graph";
+import DashBoard from "../components/DashBoard";
 
 const HelloWorld = (props) => {
   const [name, setName] = useState(props.name);
@@ -23,6 +24,10 @@ const HelloWorld = (props) => {
         {
           path: "/graph",
           element: <Graph />,
+        },
+        {
+          path: "/dashboard",
+          element: <DashBoard />,
         },
       ],
     },
