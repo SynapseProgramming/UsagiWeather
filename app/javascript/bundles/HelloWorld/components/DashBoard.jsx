@@ -6,6 +6,13 @@ import CardGroup from "react-bootstrap/Card";
 import Doughnut from "./Donut";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+const fake_data = {
+  temp: "23.24",
+  press: "100767.0",
+  alt: "66.7037",
+  humid: "96.95508",
+};
+
 const DashBoard = (props) => {
   const [sensorData, setSensorData] = useState({});
   const [isLoading, setLoading] = useState(true);
@@ -23,7 +30,11 @@ const DashBoard = (props) => {
           throw new Error("Network response was not ok.");
         })
         .then((response) => {
-          setSensorData(response);
+          if (Object.is(response, null)) {
+            setSensorData(fake_data);
+          } else {
+            setSensorData(response);
+          }
           setHumid([response.humid, 100 - response.humid]);
         })
         .catch((e) => console.error("Exception thrown", e.stack));
@@ -42,37 +53,42 @@ const DashBoard = (props) => {
   if (isLoading == false) {
     // main return when there is data available
     return (
-        <div class="card-group">
-          <Card className="text-center">
-            <Card.Header>Temperature</Card.Header>
-            <Card.Body>
-              <Card.Title>
-                The current temperature is {sensorData.temp} C
-              </Card.Title>
+      <div class="card-group">
+        <Card className="text-center">
+          <Card.Header>Temperature</Card.Header>
+          <Card.Body>
+            <Card.Title>
+              The current temperature is {sensorData.temp} C
+            </Card.Title>
 
+            <div class="mx-auto" style={{ width: 350 }}>
               <Thermostat
                 height="300px"
                 width="300px"
-                ambientTemperature={sensorData.temp}
-                targetTemperature={sensorData.temp}
+                ambientTemperature={Number(sensorData.temp)}
+                targetTemperature={Number(sensorData.temp)}
                 hvacMode="cooling"
               />
-            </Card.Body>
-          </Card>
-          <Card className="text-center">
-            <Card.Header>Humidity</Card.Header>
-              <Card.Title>
-                The current Humidity is {Humid[0]}%
-              </Card.Title>
-            <Card.Body>
+            </div>
+          </Card.Body>
+        </Card>
+        <Card className="text-center">
+          <Card.Header>Humidity</Card.Header>
+          <Card.Title>The current Humidity is {Humid[0]}%</Card.Title>
+
+          <Card.Body>
+            <div class="mx-auto" style={{ width: 350 }}>
               <Doughnut data={Humid} />
-            </Card.Body>
-          </Card>
+            </div>
+          </Card.Body>
+        </Card>
         <Card className="text-center">
           <Card.Header>Pressure & Altitude</Card.Header>
           <Card.Body>
-            <p>Current Pressure: {sensorData.press/1000} kPa</p>
-            <p>Current Altitude: {sensorData.alt} M </p>
+            <p class="fw-bold fs-4">
+              Current Pressure: {sensorData.press / 1000} kPa
+            </p>
+            <p class="fw-bold fs-4  "> Current Altitude: {sensorData.alt} M </p>
           </Card.Body>
         </Card>
       </div>

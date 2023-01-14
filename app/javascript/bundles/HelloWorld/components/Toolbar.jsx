@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import React, { useState } from "react";
+import { Modal, Button } from "react-bootstrap";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -25,10 +26,18 @@ const DeleteAll = () => {
 };
 
 const ToolBar = (props) => {
+  const [DeletePressed, setDeletePressed] = useState(false);
   return (
     <div>
       <Navbar bg="dark" variant="dark">
         <Nav className="ml-auto">
+          <img
+            src={require('../UsagilogoSVG.svg')}
+            width="30"
+            height="30"
+            className="d-inline-block align-top"
+            alt="React Bootstrap logo"
+          />
           <Navbar.Brand as={Link} to="/dashboard">
             Usagi Weather
           </Navbar.Brand>
@@ -36,18 +45,47 @@ const ToolBar = (props) => {
             View Graph
           </Nav.Link>
         </Nav>
-        <form class="form-inline">
-          <button
-            class="btn btn-danger"
-            type="button"
-            onClick={() => {
-              DeleteAll();
-              console.log("pressed!");
-            }}
-          >
-            Delete All
-          </button>
-        </form>
+        <button
+          class="btn btn-danger"
+          type="button"
+          onClick={() => {
+            setDeletePressed(true);
+          }}
+        >
+          Delete All
+        </button>
+        <Modal
+          show={DeletePressed}
+          onHide={() => {
+            setDeletePressed(false);
+          }}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Warning!</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            You are about to delete all weather records. Are you sure?
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              variant="secondary"
+              onClick={() => {
+                setDeletePressed(false);
+              }}
+            >
+              No
+            </Button>
+            <Button
+              variant="primary"
+              onClick={() => {
+                DeleteAll();
+                setDeletePressed(false);
+              }}
+            >
+              Yes
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </Navbar>
       <Outlet />
     </div>
