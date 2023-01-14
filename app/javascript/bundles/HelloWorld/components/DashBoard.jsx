@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
+import Thermostat from "react-nest-thermostat";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const DashBoard = (props) => {
@@ -18,10 +19,7 @@ const DashBoard = (props) => {
           throw new Error("Network response was not ok.");
         })
         .then((response) => {
-          console.log(response);
           setSensorData(response);
-          //   Console.log("Everything was deleted!");
-          //   console.log(response.temp);
         })
         .catch((e) => console.error("Exception thrown", e.stack));
     }
@@ -37,9 +35,16 @@ const DashBoard = (props) => {
   }, []);
 
   if (isLoading == false) {
-
-  return <p>{sensorData.temp}</p>;
-    
+    // main return when there is data available
+    return (
+      <Thermostat
+        height="400px"
+        width="400px"
+        ambientTemperature={sensorData.temp}
+        targetTemperature={sensorData.temp}
+        hvacMode="cooling"
+      />
+    );
   }
 
   return <p>Loading!</p>;
