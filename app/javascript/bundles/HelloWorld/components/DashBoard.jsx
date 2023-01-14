@@ -6,6 +6,13 @@ import CardGroup from "react-bootstrap/Card";
 import Doughnut from "./Donut";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+const fake_data = {
+  temp: "23.24",
+  press: "100767.0",
+  alt: "66.7037",
+  humid: "96.95508",
+};
+
 const DashBoard = (props) => {
   const [sensorData, setSensorData] = useState({});
   const [isLoading, setLoading] = useState(true);
@@ -23,7 +30,11 @@ const DashBoard = (props) => {
           throw new Error("Network response was not ok.");
         })
         .then((response) => {
-          setSensorData(response);
+          if (Object.is(response, null)) {
+            setSensorData(fake_data);
+          } else {
+            setSensorData(response);
+          }
           setHumid([response.humid, 100 - response.humid]);
         })
         .catch((e) => console.error("Exception thrown", e.stack));
