@@ -54,8 +54,8 @@ const DashBoard = (props) => {
               <Thermostat
                 height="300px"
                 width="300px"
-                ambientTemperature={sensorData.temp}
-                targetTemperature={sensorData.temp}
+                ambientTemperature={Number(sensorData.temp)}
+                targetTemperature={Number(sensorData.temp)}
                 hvacMode="cooling"
               />
             </div>
