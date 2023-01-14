@@ -1,6 +1,8 @@
 import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
 import Thermostat from "react-nest-thermostat";
+import Card from "react-bootstrap/Card";
+import CardGroup from "react-bootstrap/Card";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const DashBoard = (props) => {
@@ -37,13 +39,22 @@ const DashBoard = (props) => {
   if (isLoading == false) {
     // main return when there is data available
     return (
-      <Thermostat
-        height="400px"
-        width="400px"
-        ambientTemperature={sensorData.temp}
-        targetTemperature={sensorData.temp}
-        hvacMode="cooling"
-      />
+      <CardGroup>
+        <Card border="success" className="text-center">
+          <Card.Header>Temperature</Card.Header>
+          <Card.Body>
+            <Card.Title>The current temperature is {sensorData.temp} C</Card.Title>
+
+            <Thermostat
+              height="300px"
+              width="300px"
+              ambientTemperature={sensorData.temp}
+              targetTemperature={sensorData.temp}
+              hvacMode="cooling"
+            />
+          </Card.Body>
+        </Card>
+      </CardGroup>
     );
   }
 
