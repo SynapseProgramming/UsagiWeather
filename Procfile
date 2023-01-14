@@ -1,9 +1,9 @@
 # You can run these commands in separate shells
 # run locally
-# web: rails s -p 3000
+web: rails s -p 3000
 
 # expose to network
-web: rails s -b 192.168.50.119 -p 5000
+# web: rails s -b 192.168.50.119 -p 5000
 
 
 

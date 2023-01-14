@@ -21,9 +21,13 @@ const sampleSeries = {
 let temp = JSON.parse(JSON.stringify(sampleSeries));
 temp["name"] = "temp";
 
+let press = JSON.parse(JSON.stringify(sampleSeries));
+temp["name"] = "press";
+
 const Graph = (props) => {
   const [isLoading, setLoading] = useState(true);
   const [mainTemp, setmainTemp] = useState();
+  const [mainPress, setmainPress] = useState();
 
   useEffect(() => {
     const url = "api/v1/weathers/read";
@@ -43,19 +47,17 @@ const Graph = (props) => {
             // let test = timeConvert.parse(element.created_at);
             // console.log(timeConvert);
             let timeu = timeConvert.getTime();
-            console.log(timeu);
             temp["points"].push([timeu, parseFloat(element.temp)]);
+            press["points"].push([timeu, parseFloat(element.press)/1000]);
           });
 
           if (isLoading) {
-             console.log(temp);
-             // enforce time sort my chronological order
-             temp.points.sort();
+            // enforce time sort my chronological order
+            temp.points.sort();
+            press.points.sort();
             setmainTemp(new TimeSeries(temp));
-            // let wow = new TimeSeries(temp);
+            setmainPress(new TimeSeries(press));
 
-
-            // console.log("running");
             setLoading(false);
           }
         })
@@ -71,26 +73,49 @@ const Graph = (props) => {
     return <p>Loading!</p>;
   }
 
-    return (
-      <div>
-        <ChartContainer timeRange={mainTemp.timerange()} width={1000}>
-          <ChartRow height="150">
-            <YAxis
-              id="axis1"
-              label="Temperature"
-              min={0}
-              max={40}
-              width="60"
-              type="linear"
-              format=",.2f"
+  return (
+    <div>
+      <ChartContainer timeRange={mainTemp.timerange()} width={1000}>
+        <ChartRow height="150">
+          <YAxis
+            id="axis1"
+            label="Temperature degC"
+            min={0}
+            max={40}
+            width="60"
+            type="linear"
+            format=",.2f"
+          />
+          <Charts>
+            <LineChart
+              axis="axis1"
+              series={mainTemp}
+              column={["Temperature"]}
             />
-            <Charts>
-              <LineChart axis="axis1" series={mainTemp} column={["Temperature"]} />
-            </Charts>
-          </ChartRow>
-        </ChartContainer>
-      </div>
-    );
+          </Charts>
+        </ChartRow>
+
+        <ChartRow height="150">
+          <YAxis
+            id="axis2"
+            label="Pressure kPa"
+            min={0}
+            max={110}
+            width="100"
+            type="linear"
+            format=",.2f"
+          />
+          <Charts>
+            <LineChart
+              axis="axis2"
+              series={mainPress}
+              column={["Pressure"]}
+            />
+          </Charts>
+        </ChartRow>
+      </ChartContainer>
+    </div>
+  );
 };
 
 export default Graph;
