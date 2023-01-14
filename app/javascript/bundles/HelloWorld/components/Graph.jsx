@@ -27,11 +27,15 @@ temp["name"] = "press";
 let humid = JSON.parse(JSON.stringify(sampleSeries));
 humid["name"] = "humid";
 
+let alt = JSON.parse(JSON.stringify(sampleSeries));
+alt["name"] = "alt";
+
 const Graph = (props) => {
   const [isLoading, setLoading] = useState(true);
   const [mainTemp, setmainTemp] = useState();
   const [mainPress, setmainPress] = useState();
   const [mainHumid, setmainHumid] = useState();
+  const [mainAlt, setmainAlt] = useState();
 
   useEffect(() => {
     const url = "api/v1/weathers/read";
@@ -47,25 +51,24 @@ const Graph = (props) => {
         .then((response) => {
           response.forEach((element) => {
             let timeConvert = new Date(element.created_at);
-            // TODO: refactor this line of code
-            // let test = timeConvert.parse(element.created_at);
-            // console.log(timeConvert);
             let timeu = timeConvert.getTime();
             temp["points"].push([timeu, parseFloat(element.temp)]);
             press["points"].push([timeu, parseFloat(element.press) / 1000]);
             humid["points"].push([timeu, parseFloat(element.humid)]);
+            alt["points"].push([timeu, parseFloat(element.alt)]);
           });
 
           if (isLoading) {
             // enforce time sort my chronological order
 
-            console.log(humid);
             temp.points.sort();
             press.points.sort();
             humid.points.sort();
+            alt.points.sort();
             setmainTemp(new TimeSeries(temp));
             setmainPress(new TimeSeries(press));
             setmainHumid(new TimeSeries(humid));
+            setmainAlt(new TimeSeries(alt));
 
             setLoading(false);
           }
@@ -120,7 +123,7 @@ const Graph = (props) => {
         </ChartRow>
         <ChartRow height="150">
           <YAxis
-            id="axis2"
+            id="axis3"
             label="Humidity (%)"
             min={0}
             max={100}
@@ -129,7 +132,21 @@ const Graph = (props) => {
             format=",.2f"
           />
           <Charts>
-            <LineChart axis="axis2" series={mainHumid} column={["Humidity"]} />
+            <LineChart axis="axis3" series={mainHumid} column={["Humidity"]} />
+          </Charts>
+        </ChartRow>
+        <ChartRow height="150">
+          <YAxis
+            id="axis4"
+            label="Altitude (m)"
+            min={0}
+            max={200}
+            width="100"
+            type="linear"
+            format=".2f"
+          />
+          <Charts>
+            <LineChart axis="axis4" series={mainAlt} column={["Altitude"]} />
           </Charts>
         </ChartRow>
       </ChartContainer>
